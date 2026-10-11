@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Gmail Helper</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        width: 350px;
+        padding: 16px;
+        background: black;
+      }
+      h1 {
+        font-size: 18px;
+        margin-bottom: 12px;
+        color: white;
+      }
+      #status {
+        font-size: 12px;
+        color: white;
+        margin-bottom: 16px;
+      }
+      .result-box {
+        background: white;
+        border-radius: 6px;
+        padding: 12px;
+        margin-bottom: 12px;
+        border-left: 4px solid #1a73e8;
+      }
+      .result-box.high-risk {
+        border-left-color: #d32f2f;
+        background: #ffebee;
+      }
+      .result-box.medium-risk {
+        border-left-color: #f57f17;
+        background: #fff3e0;
+      }
+      #email {
+        font-weight: bold;
+        font-size: 13px;
+        word-break: break-all;
+        margin-bottom: 8px;
+        color: #1a73e8;
+      }
+      #risk {
+        font-weight: bold;
+        font-size: 12px;
+        color: #d32f2f;
+      }
+      button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        background: #1a73e8;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 13px;
+      }
+      button:hover {
+        background: #1557b0;
+      }
+      .section-title {
+        margin: 18px 0 8px;
+        font-size: 14px;
+        color:white ;
+      }
+      input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font: inherit;
+        font-size: 12px;
+      }
+      #screenshot-preview {
+        display: none;
+        width: 100%;
+        max-height: 180px;
+        margin: 0 0 8px;
+        object-fit: contain;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      #image-extracted-text {
+        margin-top: 8px;
+        max-height: 140px;
+        overflow-y: auto;
+        font-size: 11px;
+        line-height: 1.4;
+        white-space: pre-wrap;
+        background: #fafafa;
+        border: 1px solid #eee;
+        border-radius: 4px;
+        padding: 6px;
+      }
+      #image-extracted-text mark {
+        background: #ffe0b2;
+        border-bottom: 2px solid #e65100;
+        border-radius: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Gmail Helper</h1>
+    <p id="status">Checking Gmail...</p>
+    <div id="result" class="result-box" style="display: none;">
+      <div id="email"></div>
+      <div id="risk"></div>
+    </div>
+    <button id="refresh-btn">Refresh</button>
+
+    <h2 class="section-title">Explain with AI (on-device)</h2>
+    <p style="font-size: 11px; color: white; margin-bottom: 8px;">Uses Chrome's built-in on-device AI. The email text never leaves your computer.</p>
+    <button id="ai-explain-btn">Explain this email with AI</button>
+    <p id="ai-status"></p>
+    <div id="ai-result" class="result-box" style="display: none;">
+      <ul id="ai-flags-list" style="margin: 0; padding-left: 18px; font-size: 12px; line-height: 1.5;"></ul>
+    </div>
+
+    <h2 class="section-title">Screenshot review (on-device AI)</h2>
+    <p style="font-size: 11px; color: white; margin-bottom: 8px;">The AI looks at the screenshot itself — the image never leaves your computer.</p>
+    <img id="screenshot-preview" alt="Screenshot preview" />
+    <input id="scam-image" type="file" accept="image/png, image/jpeg, image/webp" />
+    <button id="scan-image-btn">Explain this screenshot with AI</button>
+    <p id="image-status"></p>
+    <div id="image-result" class="result-box" style="display: none;">
+      <div id="image-risk"></div>
+      <div id="image-extracted-text"></div>
+    </div>
+
+    <script src="model.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>
