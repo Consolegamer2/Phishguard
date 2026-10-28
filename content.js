@@ -89,10 +89,7 @@ if (!window.__gmailPhisherInitialized) {
   }
 
   function isSingleEmailOpen() {
-    // Gmail's URL hash looks like #inbox/FMfcgz... (or #all/, #sent/, etc.)
-    // when a specific message/thread is open. The inbox list view is just
-    // #inbox with no id after it. This lets us tell "reading one email"
-    // apart from "looking at the list" instead of guessing from page text.
+    // we can test the location of inbox with this line
     return /^#[a-z]+\/[A-Za-z0-9_-]+/i.test(location.hash);
   }
 
